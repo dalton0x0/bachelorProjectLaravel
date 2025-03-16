@@ -1,66 +1,114 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Installation et Configuration de Laravel avec Webpack Mix, Bootstrap CSS et Bootstrap Icons
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Ce projet est une configuration Laravel utilisant **Webpack Mix** pour la gestion des assets, avec **Bootstrap CSS** et **Bootstrap Icons** au lieu de Vite et Tailwind CSS.
 
-## About Laravel
+## Prérequis
+- [Node.js](https://nodejs.org/) installé
+- [Composer](https://getcomposer.org/) installé
+- [Laravel](https://laravel.com/docs/12.x/) installé
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Étapes d'installation
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 1. Cloner le projet et installer les dépendances PHP
+```sh
+composer install
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 2. Supprimer Vite et Tailwind CSS
+```sh
+npm remove vite laravel-vite-plugin tailwindcss postcss autoprefixer
+rm vite.config.js
+```
 
-## Learning Laravel
+### 3. Installer Webpack Mix
+```sh
+npm i --save-dev webpack webpack-cli webpack-dev-server html-webpack-plugin
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 4. Installer Laravel Mix
+```sh
+npm install laravel-mix --save-dev
+```
+Créer un fichier `webpack.mix.js` à la racine du projet :
+```js
+const mix = require('laravel-mix');
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+mix.js('resources/js/app.js', 'public/js')
+   .sass('resources/sass/app.scss', 'public/css')
+   .setPublicPath('public');
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 5. Installer Bootstrap et Bootstrap Icons
+```sh
+npm i --save bootstrap @popperjs/core
+npm i bootstrap-icons
+```
 
-## Laravel Sponsors
+### 6. Installer les dépendances additionnelles de Bootsrap
+```sh
+npm i --save-dev autoprefixer css-loader postcss-loader sass sass-loader style-loader
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 7. Configurer les fichiers styles et scripts
+Dans `resources/sass/app.scss` :
+```scss
+@import "bootstrap/scss/bootstrap";
+```
 
-### Premium Partners
+Dans `resources/js/app.js` :
+```js
+import 'bootstrap';
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### 8. Modifier `package.json`
+Ajouter les scripts suivants :
+```json
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
+    }
+}
+```
+Enlever la ligne :
+```json
+{
+    "type": "module"
+}
+```
 
-## Contributing
+### 9. Compiler les assets
+```sh
+npm run dev
+```
+Pour une version optimisée :
+```sh
+npm run prod
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 10. Utiliser Mix dans vos templates Blade
+Remplacer :
+```html
+@vite('resources/js/app.js')
+@vite('resources/css/app.css')
+```
+Par :
+```html
+<link rel="stylesheet" href="{{ mix('css/app.css') }}">
+<script src="{{ mix('js/app.js') }}"></script>
+```
 
-## Code of Conduct
+## 10. Lancer le projet Laravel
+```sh
+php artisan serve
+```
+Le projet est accessible sur `http://127.0.0.1:8000`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+🎉 Le projet Laravel est maintenant configuré avec Webpack Mix, Bootstrap CSS et Bootstrap Icons !
