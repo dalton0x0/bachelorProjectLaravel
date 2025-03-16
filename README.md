@@ -34,8 +34,8 @@ Créer un fichier `webpack.mix.js` à la racine du projet :
 const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css')
-   .setPublicPath('public');
+    .sass('resources/sass/app.scss', 'public/css')
+    .setPublicPath('public');
 ```
 
 ### 5. Installer Bootstrap et Bootstrap Icons
@@ -104,7 +104,7 @@ Par :
 <script src="{{ mix('js/app.js') }}"></script>
 ```
 
-## 10. Lancer le projet Laravel
+## 11. Lancer le projet Laravel
 ```sh
 php artisan serve
 ```
