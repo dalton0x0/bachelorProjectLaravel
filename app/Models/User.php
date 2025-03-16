@@ -15,6 +15,15 @@ class User extends Model
     use HasFactory;
     use softDeletes;
 
+    protected $fillable = [
+        'firstname',
+        'lastname',
+        'email',
+        'username',
+        'password',
+        'role',
+    ];
+
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);

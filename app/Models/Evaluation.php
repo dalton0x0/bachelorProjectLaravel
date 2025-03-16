@@ -12,6 +12,13 @@ class Evaluation extends Model
     /** @use HasFactory<\Database\Factories\EvaluationFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'description',
+        'min_value',
+        'max_value',
+    ];
+
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
