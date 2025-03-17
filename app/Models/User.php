@@ -21,7 +21,7 @@ class User extends Model
         'email',
         'username',
         'password',
-        'role',
+        'role_id',
     ];
 
     public function role(): BelongsTo

@@ -18,6 +18,8 @@ class NoteFactory extends Factory
     {
         return [
             'value' => $this->faker->numberBetween(0, 100),
+            'user_id' => $this->faker->numberBetween(1, 10),
+            'evaluation_id' => $this->faker->numberBetween(1, 10),
         ];
     }
 }

@@ -13,11 +13,11 @@ class Note extends Model
 
     protected $fillable = [
         'value',
-        'user',
-        'evaluation',
+        'user_id',
+        'evaluation_id',
     ];
 
-    public final function user(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

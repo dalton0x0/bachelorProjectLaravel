@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('username');
             $table->string('password');
-            $table->foreignIdFor(Role::class)->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Role::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });
