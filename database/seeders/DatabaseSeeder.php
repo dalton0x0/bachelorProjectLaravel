@@ -2,9 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Classroom;
+use App\Models\Role;
 use App\Models\User;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +17,40 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $admin = Role::factory()->create(['wording' => 'admin']);
+        $prof = Role::factory()->create(['wording' => 'professor']);
+        $student = Role::factory()->create(['wording' => 'student']);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        $btsSioSisr = Classroom::factory()->create(['name' => 'BTS SIO SISR']);
+        $btsSioSlam = Classroom::factory()->create(['name' => 'BTS SIO SLAM']);
+        $bachelorCda = Classroom::factory()->create(['name' => 'Bachelor CDA']);
+
+        User::factory()
+            ->for($student)
+            ->hasClassrooms($btsSioSisr)
+            ->count(3)
+            ->create();
+
+        User::factory()
+            ->for($admin)
+            ->create([
+                'firstname' => 'Admin',
+                'lastname' => 'Admin',
+                'email' => 'admin@example.com',
+                'username' => 'admin',
+                'password' => Hash::make('administrator')
+            ]);
+
+        User::factory()
+            ->for($prof)
+            ->hasClassrooms($btsSioSlam)
+            ->hasClassrooms($bachelorCda)
+            ->create([
+                'firstname' => 'Adnan',
+                'lastname' => 'RIHAN',
+                'email' => 'adnan@example.com',
+                'username' => 'adnan',
+                'password' => Hash::make('professor')
+            ]);
     }
 }

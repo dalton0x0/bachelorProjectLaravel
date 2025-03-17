@@ -17,7 +17,10 @@ class EvaluationFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => $this->faker->title(),
+            'description' => $this->faker->text(),
+            'min_value' => $this->faker->numberBetween(0, 0),
+            'max_value' => $this->faker->numberBetween(1, 100),
         ];
     }
 }
