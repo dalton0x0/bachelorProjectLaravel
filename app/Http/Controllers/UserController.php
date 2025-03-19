@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -13,7 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::with('role')->get();
+        return view('admin.home.dashboard', ['users' => $users]);
     }
 
     /**
@@ -21,7 +23,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $user = new User();
+        return view('admin.user.form', [
+            'user' => $user,
+            'roles' => Role::select('id', 'wording')->get()
+        ]);
     }
 
     /**
