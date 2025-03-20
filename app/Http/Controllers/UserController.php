@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classroom;
 use App\Models\Role;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
@@ -14,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('role')->get();
+        $users = User::all();
         return view('admin.home.dashboard', ['users' => $users]);
     }
 
@@ -26,7 +27,8 @@ class UserController extends Controller
         $user = new User();
         return view('admin.user.form', [
             'user' => $user,
-            'roles' => Role::select('id', 'wording')->get()
+            'roles' => Role::select('id', 'wording')->get(),
+            'classrooms' => Classroom::select('id', 'name')->get()
         ]);
     }
 
@@ -35,7 +37,8 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        //
+        $data = $request->validated();
+        dd($data);
     }
 
     /**

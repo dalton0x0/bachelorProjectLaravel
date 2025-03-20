@@ -17,19 +17,19 @@
                         @method($user->exists ? 'put' : 'post')
                         <div class="row">
                             <div class="col-md-6">
-                                @include('partials.input', ['value' => $user->name ?? null,'name' => 'firstname', 'label' => 'Firstname', 'placeholder' => 'firstname'])
+                                @include('partials.input', ['value' => $user->exists ? $user->firstname : null,'name' => 'firstname', 'label' => 'Firstname', 'placeholder' => 'firstname'])
                             </div>
                             <div class="col-md-6">
-                                @include('partials.input', ['value' => $user->name ?? null,'name' => 'lastname', 'label' => 'Lastname', 'placeholder' => 'lastname'])
+                                @include('partials.input', ['value' => $user->exists ? $user->lastname : null,'name' => 'lastname', 'label' => 'Lastname', 'placeholder' => 'lastname'])
                             </div>
                         </div>
-                        @include('partials.input', ['value' => $user->name ?? null,'name' => 'email', 'label' => 'Email', 'placeholder' => 'email'])
+                        @include('partials.input', ['value' => $user->exists ? $user->email : null,'name' => 'email', 'label' => 'Email', 'placeholder' => 'email'])
                         <div class="row">
                             <div class="col-md-6">
-                                @include('partials.input', ['value' => $user->name ?? null,'name' => 'username', 'label' => 'Username', 'placeholder' => 'username'])
+                                @include('partials.input', ['value' => $user->exists ? $user->username : null,'name' => 'username', 'label' => 'Username', 'placeholder' => 'username'])
                             </div>
                             <div class="col-md-6">
-                                @include('partials.input', ['type' => 'password','value' => $user->name ?? null,'name' => 'password', 'label' => 'Password', 'placeholder' => 'password'])
+                                @include('partials.input', ['type' => 'password','name' => 'password', 'label' => 'Password', 'placeholder' => 'password'])
                             </div>
                         </div>
                         <div class="row">
@@ -37,7 +37,7 @@
                                 @include('partials.select-role', ['name' => 'role_id', 'label' => 'Role'])
                             </div>
                             <div class="col-md-6">
-                                @include('partials.select-role', ['name' => 'classroom_id', 'label' => 'Classroom'])
+                                @include('partials.select-classroom', ['name' => 'classroom_id', 'label' => 'Classroom'])
                             </div>
                         </div>
 
