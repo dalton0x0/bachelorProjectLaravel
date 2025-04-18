@@ -16,8 +16,8 @@ class User extends Model
     use softDeletes;
 
     protected $fillable = [
-        'firstname',
-        'lastname',
+        'firstName',
+        'lastName',
         'email',
         'username',
         'password',
@@ -29,14 +29,19 @@ class User extends Model
         return $this->belongsTo(Role::class);
     }
 
-    public function classrooms(): BelongsToMany
+    public function classroom(): BelongsTo
+    {
+        return $this->belongsTo(Classroom::class);
+    }
+
+    public function taughtClassrooms(): BelongsToMany
     {
         return $this->belongsToMany(Classroom::class);
     }
 
-    public function evaluations(): BelongsToMany
+    public function evaluations(): HasMany
     {
-        return $this->belongsToMany(Evaluation::class);
+        return $this->HasMany(Evaluation::class);
     }
 
     public function notes(): HasMany

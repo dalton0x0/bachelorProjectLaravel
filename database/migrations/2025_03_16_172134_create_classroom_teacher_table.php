@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Classroom;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -12,14 +13,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('evaluations', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->longText('description');
-            $table->integer('min_value');
-            $table->integer('max_value');
+        Schema::create('classroom_teacher', function (Blueprint $table) {
+            $table->foreignIdFor(Classroom::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(User::class, "teacher_id")->constrained()->cascadeOnDelete();
-            $table->timestamps();
+            $table->primary(['classroom_id', 'teacher_id']);
         });
     }
 
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('evaluations');
+        Schema::dropIfExists('classroom_teacher');
     }
 };

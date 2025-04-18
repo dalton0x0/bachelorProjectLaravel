@@ -16,8 +16,18 @@ class Classroom extends Model
         'name',
     ];
 
-    public function users(): BelongsToMany
+    public function students(): HasMany
+    {
+        return $this->HasMany(User::class);
+    }
+
+    public function teachers(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
+    }
+
+    public function evaluations(): HasMany
+    {
+        return $this->HasMany(User::class);
     }
 }

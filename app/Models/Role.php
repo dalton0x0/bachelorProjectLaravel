@@ -12,7 +12,7 @@ class Role extends Model
     use HasFactory;
 
     protected $fillable = [
-        'wording',
+        'label',
     ];
 
     public function users(): HasMany
