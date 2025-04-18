@@ -20,14 +20,14 @@ class Evaluation extends Model
         'max_value',
     ];
 
-    public function users(): BelongsTo
+    public function teacher(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'teacher_id');
     }
 
     public function classrooms(): BelongsToMany
     {
-        return $this->belongsToMany(Note::class);
+        return $this->belongsToMany(Classroom::class);
     }
 
     public function notes(): HasMany

@@ -28,6 +28,6 @@ class Classroom extends Model
 
     public function evaluations(): HasMany
     {
-        return $this->HasMany(User::class);
+        return $this->HasMany(Evaluation::class);
     }
 }

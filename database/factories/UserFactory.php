@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Classroom;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -25,12 +25,13 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'firstname' => fake()->firstName(),
-            'lastname' => fake()->lastName(),
+            'firstName' => fake()->firstName(),
+            'lastName' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
             'username' => fake()->unique()->username(),
             'password' => static::$password ??= Hash::make('password'),
             'role_id' => Role::inRandomOrder()->first()->id ?? Role::factory(),
+            'classroom_id' => Classroom::inRandomOrder()->first()->id ?? Classroom::factory(),
         ];
     }
 

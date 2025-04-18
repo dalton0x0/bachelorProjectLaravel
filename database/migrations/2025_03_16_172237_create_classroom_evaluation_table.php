@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(Classroom::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Evaluation::class)->constrained()->cascadeOnDelete();
             $table->primary(['classroom_id', 'evaluation_id']);
+            $table->timestamps();
         });
     }
 

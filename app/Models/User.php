@@ -24,12 +24,16 @@ class User extends Model
         'role_id',
     ];
 
+    protected $hidden = [
+        'password'
+    ];
+
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
     }
 
-    public function classroom(): BelongsTo
+    public function studentClassroom(): BelongsTo
     {
         return $this->belongsTo(Classroom::class);
     }
@@ -41,7 +45,7 @@ class User extends Model
 
     public function evaluations(): HasMany
     {
-        return $this->HasMany(Evaluation::class);
+        return $this->HasMany(Evaluation::class, 'teacher_id');
     }
 
     public function notes(): HasMany

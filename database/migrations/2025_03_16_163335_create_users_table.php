@@ -17,11 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('firstName');
             $table->string('lastName');
-            $table->string('email');
-            $table->string('username');
+            $table->string('email')->unique();
+            $table->string('username')->unique();
             $table->string('password');
             $table->foreignIdFor(Role::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Classroom::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Classroom::class)->nullable()->constrained()->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,6 +22,7 @@ class EvaluationFactory extends Factory
             'description' => $this->faker->text(),
             'min_value' => $this->faker->numberBetween(0, 0),
             'max_value' => $this->faker->numberBetween(1, 100),
+            'teacher_id' => User::inRandomOrder()->first()->id ?? User::factory(),
         ];
     }
 }
