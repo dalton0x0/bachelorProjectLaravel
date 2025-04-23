@@ -1,4 +1,4 @@
-# Installation et Configuration de Laravel avec Webpack Mix, Bootstrap CSS et Bootstrap Icons
+# Projet Bachelor en Laravel (Intranet d'une école)
 
 Ce projet est une configuration Laravel utilisant **Webpack Mix** pour la gestion des assets, avec **Bootstrap CSS** et **Bootstrap Icons** au lieu de Vite et Tailwind CSS.
 
@@ -9,81 +9,36 @@ Ce projet est une configuration Laravel utilisant **Webpack Mix** pour la gestio
 
 ## Étapes d'installation
 
-### 1. Cloner le projet et installer les dépendances PHP
+### 1. Cloner le projet
+```sh
+git clone https://github.com/dalton0x0/bachelorProjectLaravel.git
+```
+
+### 2. Installer les dépendances PHP
 ```sh
 composer install
 ```
 
-### 2. Supprimer Vite et Tailwind CSS
+### 3. Installer les dépendances JavaScript
 ```sh
-npm remove vite laravel-vite-plugin tailwindcss postcss autoprefixer
-rm vite.config.js
+npm install
 ```
 
-### 3. Installer Webpack Mix
+### 4. Mettez en place la base de données (SQlite par défaut)
 ```sh
-npm i --save-dev webpack webpack-cli webpack-dev-server html-webpack-plugin
+php artisan:migrate
 ```
 
-### 4. Installer Laravel Mix
+### 5. (Optionnel) Peuplez la base de données
 ```sh
-npm install laravel-mix --save-dev
+php artisan db:seed
 ```
-Créer un fichier `webpack.mix.js` à la racine du projet :
-```js
-const mix = require('laravel-mix');
-
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css')
-    .setPublicPath('public');
-```
-
-### 5. Installer Bootstrap et Bootstrap Icons
+ou
 ```sh
-npm i --save bootstrap @popperjs/core
-npm i bootstrap-icons
+php artisan migrate:fresh --seed
 ```
 
-### 6. Installer les dépendances additionnelles de Bootsrap
-```sh
-npm i --save-dev autoprefixer css-loader postcss-loader sass sass-loader style-loader
-```
-
-### 7. Configurer les fichiers styles et scripts
-Dans `resources/sass/app.scss` :
-```scss
-@import "bootstrap/scss/bootstrap";
-```
-
-Dans `resources/js/app.js` :
-```js
-import 'bootstrap';
-```
-
-### 8. Modifier `package.json`
-Ajouter les scripts suivants :
-```json
-{
-    "private": true,
-    "scripts": {
-        "dev": "npm run development",
-        "development": "mix",
-        "watch": "mix watch",
-        "watch-poll": "mix watch -- --watch-options-poll=1000",
-        "hot": "mix watch --hot",
-        "prod": "npm run production",
-        "production": "mix --production"
-    }
-}
-```
-Enlever la ligne :
-```json
-{
-    "type": "module"
-}
-```
-
-### 9. Compiler les assets
+### 6. Compiler les assets
 ```sh
 npm run dev
 ```
@@ -92,23 +47,11 @@ Pour une version optimisée :
 npm run prod
 ```
 
-## 10. Utiliser Mix dans vos templates Blade
-Remplacer :
-```html
-@vite('resources/js/app.js')
-@vite('resources/css/app.css')
-```
-Par :
-```html
-<link rel="stylesheet" href="{{ mix('css/app.css') }}">
-<script src="{{ mix('js/app.js') }}"></script>
-```
-
-## 11. Lancer le projet Laravel
+## 7. Lancer le projet Laravel
 ```sh
 php artisan serve
 ```
 Le projet est accessible sur `http://127.0.0.1:8000`
 
 ---
-🎉 Le projet Laravel est maintenant configuré avec Webpack Mix, Bootstrap CSS et Bootstrap Icons !
+Le projet Laravel est maintenant accessible avec toutes les dépendances installées !
