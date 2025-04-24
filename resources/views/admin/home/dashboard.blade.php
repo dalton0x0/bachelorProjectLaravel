@@ -6,16 +6,22 @@
     <ul>
         @foreach($users as $user)
             <li class="py-2">
-                Full name : {{ $user->firstname }} {{ $user->lastname }}
+                Full name : {{ $user->firstName }} {{ $user->lastName }}
                 <br>
-                role : {{ $user->role->wording }}
+                role : {{ $user->role->label }}
                 <br>
-                classroom :
-                @foreach($user->classrooms as $classroom)
-                    {{ $classroom->name }}
-                @endforeach
+                @if($user->studentClassroom == null)
+                    classroom taught :
+                    @foreach($user->taughtClassrooms as $taughtClassroom)
+                        {{ $taughtClassroom->name }}
+                    @endforeach
+                @endif
+                @if($user->studentClassroom != null)
+                    classroom :
+                    {{ $user->studentClassroom->name }}
+                @endif
             </li>
         @endforeach
-            <a href="{{ route('admin.user.create') }}">Create new user</a>
     </ul>
+    <a href="{{ route('admin.user.create') }}">Create new user</a>
 @endsection
