@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
         $teacher->taughtClassrooms()->attach($classrooms->pluck('id')->random(2));
 
         User::factory()
-            ->count(5)
+            ->count(3)
             ->create()
             ->each(function ($user) use ($studentRole, $classrooms) {
                 $user->update([

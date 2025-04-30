@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', config('app.name'))</title>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/theme.css') }}">
     @stack('stylesheet')
 </head>
-<body class="bg-body-tertiary">
-    <main class="container my-5">
-        @yield('content')
-    </main>
+<body class="g-sidenav-show">
+    @yield('content')
     <script src="{{ mix('js/app.js') }}"></script>
     @stack('scripts')
 </body>

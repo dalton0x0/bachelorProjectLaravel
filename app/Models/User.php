@@ -33,14 +33,14 @@ class User extends Model
         return $this->belongsTo(Role::class);
     }
 
-    public function studentClassroom(): BelongsTo
+    public function studiedClassroom(): BelongsTo
     {
         return $this->belongsTo(Classroom::class);
     }
 
     public function taughtClassrooms(): BelongsToMany
     {
-        return $this->belongsToMany(Classroom::class);
+        return $this->belongsToMany(Classroom::class, 'classroom_teacher', 'teacher_id', 'classroom_id');
     }
 
     public function evaluations(): HasMany
