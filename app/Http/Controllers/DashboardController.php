@@ -9,7 +9,7 @@ class DashboardController extends Controller
 {
     public function dashboard()
     {
-        $users = User::with(['role', 'studiedClassroom', 'taughtClassrooms']);
+        $users = User::with(['role', 'studiedClassroom', 'taughtClassrooms'])->get();
         return view('admin.home.index', ['users' => $users]);
     }
 }

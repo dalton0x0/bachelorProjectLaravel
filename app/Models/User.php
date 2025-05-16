@@ -35,7 +35,7 @@ class User extends Model
 
     public function studiedClassroom(): BelongsTo
     {
-        return $this->belongsTo(Classroom::class);
+        return $this->belongsTo(Classroom::class, 'classroom_id');
     }
 
     public function taughtClassrooms(): BelongsToMany
