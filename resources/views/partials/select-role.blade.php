@@ -10,9 +10,9 @@
 <div @class(["form-group mb-3", $class])>
     <label class="m-2" for="{{ $name }}">{{ $label }}</label>
     <select name="{{ $name }}" id="{{ $name }}" class="form-select form-select-lg mb-3" aria-label="Large select example">
-        <option value="">Choose role</option>
+        <option value="">Choose classroom</option>
         @foreach($roles as $role)
-            <option @selected(old('role_id', $user->role_id) == $role->id) value="{{ $role->id }}">{{ $role->wording }}</option>
+            <option @selected(old('role_id', $user->role_id) == $role->id) value="{{ $role->id }}">{{ $role->label }}</option>
         @endforeach
     </select>
     @error($name)

@@ -7,6 +7,8 @@ use App\Models\Role;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -16,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('admin.home.dashboard', ['users' => $users]);
+        return view('admin.users.index', ['users' => $users]);
     }
 
     /**
@@ -25,9 +27,9 @@ class UserController extends Controller
     public function create()
     {
         $user = new User();
-        return view('admin.user.form', [
+        return view('admin.users.form', [
             'user' => $user,
-            'roles' => Role::select('id', 'wording')->get(),
+            'roles' => Role::select('id', 'label')->get(),
             'classrooms' => Classroom::select('id', 'name')->get()
         ]);
     }
@@ -38,7 +40,9 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $data = $request->validated();
-        dd($data);
+        $data['password'] = Hash::make($data['password']);
+        $user = User::create($data);
+        return to_route('admin.users.index')->with('success', 'User created');
     }
 
     /**
@@ -54,7 +58,11 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('admin.users.form', [
+            'user' => $user,
+            'roles' => Role::select('id', 'label')->get(),
+            'classrooms' => Classroom::select('id', 'name')->get()
+        ]);
     }
 
     /**
@@ -62,7 +70,12 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $data = $request->validated();
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($data['password']);
+        }
+        $user->update($data);
+        return to_route('admin.users.index')->with('success', 'User updated');
     }
 
     /**
@@ -70,6 +83,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return to_route('admin.users.index')->with('success', 'User deleted');
     }
 }
